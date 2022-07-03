@@ -7,6 +7,8 @@ package sistema.empleadosDAL;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  *
@@ -28,6 +30,18 @@ public class conexion {
         } catch (Exception e) {
             
             System.out.println("error de conexion" + e );
+        }
+    }
+    
+    public int ejecutarSentenciaSQL(String strSentenciaSQL){
+        try {
+            PreparedStatement pstm = conn.prepareStatement(strSentenciaSQL);
+            pstm.execute();
+            return 1;
+            
+        } catch (SQLException e) {
+            System.out.println(e);
+            return 0;
         }
     }
     
