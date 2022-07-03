@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package sistema.empleadosGUI;
+import sistema.empleadosDAL.conexion;
 
 /**
  *
@@ -56,6 +57,11 @@ public class frmEmpleados extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblEmpleados);
 
         btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         btnEditar.setText("Editar");
 
@@ -149,6 +155,11 @@ public class frmEmpleados extends javax.swing.JFrame {
     private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCorreoActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+        conexion objConexion = new conexion();
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
     /**
      * @param args the command line arguments
