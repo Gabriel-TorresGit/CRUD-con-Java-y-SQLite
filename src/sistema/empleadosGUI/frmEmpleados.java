@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package sistema.empleadosGUI;
+import java.sql.ResultSet;
 import sistema.empleadosDAL.conexion;
 
 /**
@@ -160,6 +161,20 @@ public class frmEmpleados extends javax.swing.JFrame {
         // TODO add your handling code here:
         conexion objConexion = new conexion();
         objConexion.ejecutarSentenciaSQL("INSERT INTO Empleados (ID, Nombre, Correo) VALUES (null, 'oscar', 'gabriel@correo')");
+        
+        try {
+            ResultSet resultado = objConexion.consultarRegistros("SELECT * FROM Empleados");
+            
+            while (resultado.next()) {
+                
+                System.out.println(resultado.getString("ID"));
+                System.out.println(resultado.getString("Nombre"));
+                System.out.println(resultado.getString("Correo"));
+                
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     /**
