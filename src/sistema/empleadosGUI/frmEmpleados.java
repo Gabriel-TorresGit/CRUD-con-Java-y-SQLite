@@ -5,6 +5,7 @@
  */
 package sistema.empleadosGUI;
 import java.sql.ResultSet;
+import sistema.empleadosBL.empleadosBL;
 import sistema.empleadosDAL.conexion;
 
 /**
@@ -160,7 +161,13 @@ public class frmEmpleados extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
         conexion objConexion = new conexion();
-        objConexion.ejecutarSentenciaSQL("INSERT INTO Empleados (ID, Nombre, Correo) VALUES (null, 'oscar', 'gabriel@correo')");
+        
+        empleadosBL oEmpleados = recuperarDatosGUI();
+        
+        String strSentenciaInsert = String.format("INSERT INTO Empleados (ID, Nombre, Correo) "
+                + "VALUES (null, '%s', '%s')", oEmpleados.getNombre(), oEmpleados.getCorreo());
+        
+        objConexion.ejecutarSentenciaSQL(strSentenciaInsert);
         
         try {
             ResultSet resultado = objConexion.consultarRegistros("SELECT * FROM Empleados");
@@ -174,9 +181,22 @@ public class frmEmpleados extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             System.out.println(e);
-        }
+        }  
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    public empleadosBL recuperarDatosGUI(){
+        empleadosBL oEmpleados = new empleadosBL();
+        
+        int ID = (txtID.getText().isEmpty()) ?0: Integer.parseInt(txtID.getText());
+        
+        oEmpleados.setID(ID);
+        oEmpleados.setNombre(txtNombre.getText());
+        oEmpleados.setCorreo(txtCorreo.getText());
+        
+        return oEmpleados;
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
