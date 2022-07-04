@@ -5,6 +5,7 @@
  */
 package sistema.empleadosGUI;
 import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
 import sistema.empleadosBL.empleadosBL;
 import sistema.empleadosDAL.conexion;
 
@@ -13,12 +14,21 @@ import sistema.empleadosDAL.conexion;
  * @author Gabi
  */
 public class frmEmpleados extends javax.swing.JFrame {
+    
+    DefaultTableModel modelo;
 
     /**
      * Creates new form frmEmpleados
      */
     public frmEmpleados() {
         initComponents();
+        
+        String[] titulos = {"ID","Nombre","Correo"};
+        
+        modelo = new DefaultTableModel(null,titulos);
+        tblEmpleados.setModel(modelo);
+        
+        mostrarDatos();
     }
 
     /**
@@ -183,7 +193,29 @@ public class frmEmpleados extends javax.swing.JFrame {
             System.out.println(e);
         }  
     }//GEN-LAST:event_btnAgregarActionPerformed
-
+    
+    public void mostrarDatos(){
+        conexion objConexion = new conexion();
+        
+        try {
+            ResultSet resultado = objConexion.consultarRegistros("SELECT * FROM Empleados");
+            
+            while (resultado.next()) {
+                
+                System.out.println(resultado.getString("ID"));
+                System.out.println(resultado.getString("Nombre"));
+                System.out.println(resultado.getString("Correo"));
+                
+                Object[] oUsuario = {resultado.getString("ID"), resultado.getString("Nombre"), resultado.getString("Correo") };
+                
+                modelo.addRow(oUsuario);
+                
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
     public empleadosBL recuperarDatosGUI(){
         empleadosBL oEmpleados = new empleadosBL();
         
