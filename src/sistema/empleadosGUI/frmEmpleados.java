@@ -5,6 +5,7 @@
  */
 package sistema.empleadosGUI;
 import java.sql.ResultSet;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import sistema.empleadosBL.empleadosBL;
 import sistema.empleadosDAL.conexion;
@@ -66,6 +67,11 @@ public class frmEmpleados extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblEmpleadosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblEmpleados);
 
         btnAgregar.setText("Agregar");
@@ -193,6 +199,18 @@ public class frmEmpleados extends javax.swing.JFrame {
             System.out.println(e);
         }  
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void tblEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpleadosMouseClicked
+        // TODO add your handling code here:
+        
+        if(evt.getClickCount()==1){
+            JTable receptor= (JTable) evt.getSource();
+            
+            txtID.setText(receptor.getModel().getValueAt(receptor.getSelectedRow(), 0).toString());
+            txtNombre.setText(receptor.getModel().getValueAt(receptor.getSelectedRow(), 1).toString());
+            txtCorreo.setText(receptor.getModel().getValueAt(receptor.getSelectedRow(), 2).toString());
+        }
+    }//GEN-LAST:event_tblEmpleadosMouseClicked
     
     public void mostrarDatos(){
         conexion objConexion = new conexion();
