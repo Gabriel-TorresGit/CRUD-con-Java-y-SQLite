@@ -82,6 +82,11 @@ public class frmEmpleados extends javax.swing.JFrame {
         });
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnBorrar.setText("Borrar");
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
@@ -190,6 +195,8 @@ public class frmEmpleados extends javax.swing.JFrame {
         
         objConexion.ejecutarSentenciaSQL(strSentenciaInsert);
         
+        this.mostrarDatos();
+        
         try {
             ResultSet resultado = objConexion.consultarRegistros("SELECT * FROM Empleados");
             
@@ -231,6 +238,20 @@ public class frmEmpleados extends javax.swing.JFrame {
         this.mostrarDatos();
         
     }//GEN-LAST:event_btnBorrarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        conexion objConexion = new conexion();
+        
+        empleadosBL oEmpleados = recuperarDatosGUI();
+        
+        String strSentenciaInsert = String.format("UPDATE  Empleados SET Nombre='%s', "
+                + "Correo='%s' WHERE ID=%d", oEmpleados.getNombre(), oEmpleados.getCorreo(), oEmpleados.getID());
+        
+        objConexion.ejecutarSentenciaSQL(strSentenciaInsert);
+        
+        this.mostrarDatos();
+    }//GEN-LAST:event_btnEditarActionPerformed
     
     public void mostrarDatos(){
         
