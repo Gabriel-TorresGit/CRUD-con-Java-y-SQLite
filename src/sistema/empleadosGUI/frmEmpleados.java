@@ -84,6 +84,11 @@ public class frmEmpleados extends javax.swing.JFrame {
         btnEditar.setText("Editar");
 
         btnBorrar.setText("Borrar");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
 
@@ -211,8 +216,27 @@ public class frmEmpleados extends javax.swing.JFrame {
             txtCorreo.setText(receptor.getModel().getValueAt(receptor.getSelectedRow(), 2).toString());
         }
     }//GEN-LAST:event_tblEmpleadosMouseClicked
+
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        // TODO add your handling code here:
+        conexion objConexion = new conexion();
+        
+        empleadosBL oEmpleados = recuperarDatosGUI();
+        
+        String strSentenciaInsert = String.format("DELETE FROM Empleados WHERE ID = %d ", oEmpleados.getID());
+        
+        
+        objConexion.ejecutarSentenciaSQL(strSentenciaInsert);
+        
+        this.mostrarDatos();
+        
+    }//GEN-LAST:event_btnBorrarActionPerformed
     
     public void mostrarDatos(){
+        
+        while(modelo.getRowCount()>0){
+            modelo.removeRow(0);
+        }
         conexion objConexion = new conexion();
         
         try {
