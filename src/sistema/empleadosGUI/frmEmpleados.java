@@ -29,7 +29,8 @@ public class frmEmpleados extends javax.swing.JFrame {
         modelo = new DefaultTableModel(null,titulos);
         tblEmpleados.setModel(modelo);
         
-        mostrarDatos();
+        this.mostrarDatos();
+        this.limpiar();
     }
 
     /**
@@ -96,6 +97,13 @@ public class frmEmpleados extends javax.swing.JFrame {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        txtID.setEditable(false);
 
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,6 +204,7 @@ public class frmEmpleados extends javax.swing.JFrame {
         objConexion.ejecutarSentenciaSQL(strSentenciaInsert);
         
         this.mostrarDatos();
+        this.limpiar();
         
         try {
             ResultSet resultado = objConexion.consultarRegistros("SELECT * FROM Empleados");
@@ -222,6 +231,10 @@ public class frmEmpleados extends javax.swing.JFrame {
             txtNombre.setText(receptor.getModel().getValueAt(receptor.getSelectedRow(), 1).toString());
             txtCorreo.setText(receptor.getModel().getValueAt(receptor.getSelectedRow(), 2).toString());
         }
+        
+        btnAgregar.setEnabled(false);
+        btnEditar.setEnabled(true);
+        btnBorrar.setEnabled(true);
     }//GEN-LAST:event_tblEmpleadosMouseClicked
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
@@ -236,6 +249,7 @@ public class frmEmpleados extends javax.swing.JFrame {
         objConexion.ejecutarSentenciaSQL(strSentenciaInsert);
         
         this.mostrarDatos();
+        this.limpiar();
         
     }//GEN-LAST:event_btnBorrarActionPerformed
 
@@ -251,7 +265,13 @@ public class frmEmpleados extends javax.swing.JFrame {
         objConexion.ejecutarSentenciaSQL(strSentenciaInsert);
         
         this.mostrarDatos();
+        this.limpiar();
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        this.limpiar();
+    }//GEN-LAST:event_btnCancelarActionPerformed
     
     public void mostrarDatos(){
         
@@ -289,6 +309,16 @@ public class frmEmpleados extends javax.swing.JFrame {
         oEmpleados.setCorreo(txtCorreo.getText());
         
         return oEmpleados;
+    }
+    
+    public void limpiar(){
+        txtID.setText("");
+        txtNombre.setText("");
+        txtCorreo.setText("");
+        
+        btnAgregar.setEnabled(true);
+        btnEditar.setEnabled(false);
+        btnBorrar.setEnabled(false);
     }
     
     
